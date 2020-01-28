@@ -9,11 +9,14 @@ async function sandbox (searchLink = url_restaurant_lacroixblanche /* click_rest
   try {
     
     console.log(`🕵️‍♀️  browsing ${searchLink} source`);
+    const test_restaus= await michelin.scrapeRestaurant_test('https://guide.michelin.com/fr/fr/ile-de-france/restaurants/bib-gourmand');
+    console.log(test_restaus)
 
-    const restaurant = await michelin.scrapeRestaurant(searchLink);
 
-    console.log(restaurant);
-    console.log(restaurant.name);
+    //const restaurant = await michelin.scrapeRestaurant(searchLink);
+
+    //console.log(restaurant);
+    //console.log(restaurant.name);
     console.log('done');
     process.exit(0);
   } catch (e) {

@@ -19,13 +19,85 @@ const click_restaurant=data =>{
 const get_restaurants_page=data =>{
   const $ = cheerio.load(data);
   const main_page=$('body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation')
-  // starting with this we could acces all the restaurants stored in it, in "body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(4) > div" with the index going from 1 to 20
+  // starting with this we could access all the restaurants stored in it, in "body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(4) > div" with the index going from 1 to 20
 
   var i;
-  for (i = 1; i < 21; i++) {
-    //get the restaurant corresponding to the right index;
-} 
+  const urllist_restaurants=[];
+  for (i = 0; i < 20; i++) {
+    $('body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation')
+    'body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(1) > div'
+    var url_restaurant_index= a;
+    var index_str= i.toString(10)
+    console.log(index_str)
+    var new_data=SelectWhereDataId( "card__menu js-match-height js-map", index_str)
+    where ('data-index'==index_str)
 
+    //get the restaurant corresponding to the right index;
+    } 
+};
+
+
+
+
+function selectWhere(data, propertyName) {
+  for (var i = 0; i < data.length; i++) {
+      if (data[i][propertyName] !== null) return data[i][propertyName];
+  }
+  return null;
+}
+// from https://stackoverflow.com/questions/6959530/best-way-of-basically-doing-a-where-clause-in-javascript
+
+function SelectWhereDataId(data, IDwewant) {
+  for (var i = 0; i < data.length; i++) {
+      if (data[i].id == IDwewant) return data[i];
+  }
+  console.log("null returned")
+  return null;
+}
+
+
+const parseTest = data => {
+  const $ = cheerio.load(data);
+
+  var list_url=[]
+  for (i = 1; i < 22; i++) {
+    if (i != 9)
+    { // because 9 is the "subscribe" link
+      var index_str= i.toString(10)
+      //console.log(index_str)
+      'body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(20) > div > a'
+      var url_restaurant = $(`body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(${index_str}) > div > a`).attr('href');
+      url_restaurant=`https://guide.michelin.com${url_restaurant}`
+      console.log(url_restaurant)
+      //console.log(`https://guide.michelin.com${url_restaurant}`)
+
+      //const restaurant = await michelin.scrapeRestaurant(`https://guide.michelin.com${url_restaurant}`);
+
+      //console.log(restaurant);
+    }
+    //get the restaurant corresponding to the right index;
+  } 
+  /*
+  index_str="6"
+  const url1 = $(`body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(${index_str}) > div > a`).attr('href');
+  const url = $('body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(1) > div > a').attr('href');
+  const namerest = $('body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(1) > div > a').attr('aria-label');
+  const type = $('body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(1) > div > div.card__menu-footer.d-flex.js-match-height-footer > div.card__menu-footer--price').text();
+  */
+  return {list_url/*url_restaurant, namerest, type, url1, phone, price_and_type, review*/};
+};
+
+module.exports.scrapeRestaurant_test = async url => {
+  const response = await axios(url);
+  const {data, status} = response;
+
+  if (status >= 200 && status < 300) {
+    return parseTest(data);
+  }
+
+  console.error(status);
+
+  return null;
 };
 
 
