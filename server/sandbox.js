@@ -2,11 +2,12 @@
 const michelin = require('./michelin');
 const url_liste_restaurants='https://guide.michelin.com/fr/fr/ile-de-france/restaurants/bib-gourmand';
 const url_restaurant_lacroixblanche='https://guide.michelin.com/fr/fr/centre-val-de-loire/veuves/restaurant/l-auberge-de-la-croix-blanche';
+//const clickbutton="body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(1) > div > a"
 
 
-
-async function sandbox (searchLink = url_restaurant_lacroixblanche) {
+async function sandbox (searchLink = url_restaurant_lacroixblanche /* click_restaurant()*/) {
   try {
+    
     console.log(`🕵️‍♀️  browsing ${searchLink} source`);
 
     const restaurant = await michelin.scrapeRestaurant(searchLink);

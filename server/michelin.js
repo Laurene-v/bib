@@ -1,12 +1,29 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
+
+var click1 =data =>{
+  //document.querySelector(data).click();
+  const $ = cheerio.load(data);
+  const next_url=$("body > main > section.section-main.search-results.search-listing-result > div > div > div.search-results__count > div.d-flex.align-items-end.search-results__status > div.btn-carousel.hide-not-dekstop > a").attr('href');
+  //document.querySelector(data).click();
+  return {next_url}
+};
+
+const click_restaurant=data =>{
+  const $ = cheerio.load(data);
+  const url_restaurant=$('body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(1) > div > a').attr('href');
+  return{url_restaurant}
+};
 /**
  * Parse webpage restaurant
  * @param  {String} data - html response
  * @return {Object} restaurant
  */
 const parse = data => {
+  const clickbutton="body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(1) > div > a"
+
+  //click1(clickbutton)
   const $ = cheerio.load(data);
   const name = $('.section-main h2.restaurant-details__heading--title').text();
   const experience = $('#experience-section > ul > li:nth-child(2)').text();
@@ -18,6 +35,8 @@ const parse = data => {
   
   return {name, experience, address, phone, price_and_type, review};
 };
+
+
 
 /**
  * Scrape a given restaurant url
