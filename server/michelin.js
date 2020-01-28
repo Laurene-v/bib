@@ -15,6 +15,20 @@ const click_restaurant=data =>{
   const url_restaurant=$('body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(1) > div > a').attr('href');
   return{url_restaurant}
 };
+
+const get_restaurants_page=data =>{
+  const $ = cheerio.load(data);
+  const main_page=$('body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation')
+  // starting with this we could acces all the restaurants stored in it, in "body > main > section.section-main.search-results.search-listing-result > div > div > div.row.restaurant__list-row.js-toggle-result.js-geolocation > div:nth-child(4) > div" with the index going from 1 to 20
+
+  var i;
+  for (i = 1; i < 21; i++) {
+    //get the restaurant corresponding to the right index;
+} 
+
+};
+
+
 /**
  * Parse webpage restaurant
  * @param  {String} data - html response
